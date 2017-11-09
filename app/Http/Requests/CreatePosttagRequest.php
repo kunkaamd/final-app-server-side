@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateNotificationGroupRequest extends FormRequest {
+class CreatePosttagRequest extends FormRequest {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class CreateNotificationGroupRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-            'notification_id' => 'required', 
+            'tag_id' => 'required', 
             
 		];
 	}

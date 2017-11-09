@@ -16,19 +16,12 @@
     </div>
 </div>
 
-{!! Form::open(array('route' => config('quickadmin.route').'.series.store', 'id' => 'form-with-validation', 'class' => 'form-horizontal')) !!}
+{!! Form::open(array('route' => config('quickadmin.route').'.tag.store', 'id' => 'form-with-validation', 'class' => 'form-horizontal')) !!}
 
 <div class="form-group">
     {!! Form::label('name', 'name*', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
         {!! Form::text('name', old('name'), array('class'=>'form-control')) !!}
-        
-    </div>
-</div><div class="form-group">
-    {!! Form::label('user_id', 'email*', array('class'=>'col-sm-2 control-label')) !!}
-    <div class="col-sm-10">
-        {!! Form::select('user_id', $user, old('user_id'), array('class'=>'form-control')) !!}
-        
     </div>
 </div>
 

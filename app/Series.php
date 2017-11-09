@@ -21,7 +21,11 @@ class Series extends Model {
 
     protected $table    = 'series';
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+          'name',
+          'user_id',
+          'postnumber'
+    ];
 
 
     public static function boot()
@@ -30,10 +34,16 @@ class Series extends Model {
 
         Series::observe(new UserActionsObserver);
     }
+
+    public function user()
+    {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
     public function post()
     {
-        return $this->hasMany('App\Post','series_id');
+      return $this->hasMany('App\Post','series_id');
     }
+
 
 
 

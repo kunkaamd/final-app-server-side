@@ -2,9 +2,9 @@
 
 @section('content')
 
-<p>{!! link_to_route(config('quickadmin.route').'.notificationgroup.create', trans('quickadmin::templates.templates-view_index-add_new') , null, array('class' => 'btn btn-success')) !!}</p>
+<p>{!! link_to_route(config('quickadmin.route').'.posttag.create', trans('quickadmin::templates.templates-view_index-add_new') , null, array('class' => 'btn btn-success')) !!}</p>
 
-@if ($notificationgroup->count())
+@if ($posttag->count())
     <div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">{{ trans('quickadmin::templates.templates-view_index-list') }}</div>
@@ -16,25 +16,25 @@
                         <th>
                             {!! Form::checkbox('delete_all',1,false,['class' => 'mass']) !!}
                         </th>
-                        <th>Notification</th>
-<th>Group</th>
+                        <th>Tag</th>
+<th>Post</th>
 
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach ($notificationgroup as $row)
+                    @foreach ($posttag as $row)
                         <tr>
                             <td>
                                 {!! Form::checkbox('del-'.$row->id,1,false,['class' => 'single','data-id'=> $row->id]) !!}
                             </td>
-                            <td>{{ isset($row->notification->title) ? $row->notification->title : '' }}</td>
-<td>{{ isset($row->group->name) ? $row->group->name : '' }}</td>
+                            <td>{{ isset($row->tag->name) ? $row->tag->name : '' }}</td>
+<td>{{ isset($row->post->title) ? $row->post->title : '' }}</td>
 
                             <td>
-                                {!! link_to_route(config('quickadmin.route').'.notificationgroup.edit', trans('quickadmin::templates.templates-view_index-edit'), array($row->id), array('class' => 'btn btn-xs btn-info')) !!}
-                                {!! Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'onsubmit' => "return confirm('".trans("quickadmin::templates.templates-view_index-are_you_sure")."');",  'route' => array(config('quickadmin.route').'.notificationgroup.destroy', $row->id))) !!}
+                                {!! link_to_route(config('quickadmin.route').'.posttag.edit', trans('quickadmin::templates.templates-view_index-edit'), array($row->id), array('class' => 'btn btn-xs btn-info')) !!}
+                                {!! Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'onsubmit' => "return confirm('".trans("quickadmin::templates.templates-view_index-are_you_sure")."');",  'route' => array(config('quickadmin.route').'.posttag.destroy', $row->id))) !!}
                                 {!! Form::submit(trans('quickadmin::templates.templates-view_index-delete'), array('class' => 'btn btn-xs btn-danger')) !!}
                                 {!! Form::close() !!}
                             </td>
@@ -49,7 +49,7 @@
                     </button>
                 </div>
             </div>
-            {!! Form::open(['route' => config('quickadmin.route').'.notificationgroup.massDelete', 'method' => 'post', 'id' => 'massDelete']) !!}
+            {!! Form::open(['route' => config('quickadmin.route').'.posttag.massDelete', 'method' => 'post', 'id' => 'massDelete']) !!}
                 <input type="hidden" id="send" name="toDelete">
             {!! Form::close() !!}
         </div>

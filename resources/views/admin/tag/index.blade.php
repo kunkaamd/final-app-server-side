@@ -2,9 +2,9 @@
 
 @section('content')
 
-<p>{!! link_to_route(config('quickadmin.route').'.series.create', trans('quickadmin::templates.templates-view_index-add_new') , null, array('class' => 'btn btn-success')) !!}</p>
+<p>{!! link_to_route(config('quickadmin.route').'.tag.create', trans('quickadmin::templates.templates-view_index-add_new') , null, array('class' => 'btn btn-success')) !!}</p>
 
-@if ($series->count())
+@if ($tag->count())
     <div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">{{ trans('quickadmin::templates.templates-view_index-list') }}</div>
@@ -17,24 +17,22 @@
                             {!! Form::checkbox('delete_all',1,false,['class' => 'mass']) !!}
                         </th>
                         <th>name</th>
-<th>email</th>
 
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach ($series as $row)
+                    @foreach ($tag as $row)
                         <tr>
                             <td>
                                 {!! Form::checkbox('del-'.$row->id,1,false,['class' => 'single','data-id'=> $row->id]) !!}
                             </td>
                             <td>{{ $row->name }}</td>
-<td>{{ isset($row->user->email) ? $row->user->email : '' }}</td>
 
                             <td>
-                                {!! link_to_route(config('quickadmin.route').'.series.edit', trans('quickadmin::templates.templates-view_index-edit'), array($row->id), array('class' => 'btn btn-xs btn-info')) !!}
-                                {!! Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'onsubmit' => "return confirm('".trans("quickadmin::templates.templates-view_index-are_you_sure")."');",  'route' => array(config('quickadmin.route').'.series.destroy', $row->id))) !!}
+                                {!! link_to_route(config('quickadmin.route').'.tag.edit', trans('quickadmin::templates.templates-view_index-edit'), array($row->id), array('class' => 'btn btn-xs btn-info')) !!}
+                                {!! Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'onsubmit' => "return confirm('".trans("quickadmin::templates.templates-view_index-are_you_sure")."');",  'route' => array(config('quickadmin.route').'.tag.destroy', $row->id))) !!}
                                 {!! Form::submit(trans('quickadmin::templates.templates-view_index-delete'), array('class' => 'btn btn-xs btn-danger')) !!}
                                 {!! Form::close() !!}
                             </td>
@@ -49,7 +47,7 @@
                     </button>
                 </div>
             </div>
-            {!! Form::open(['route' => config('quickadmin.route').'.series.massDelete', 'method' => 'post', 'id' => 'massDelete']) !!}
+            {!! Form::open(['route' => config('quickadmin.route').'.tag.massDelete', 'method' => 'post', 'id' => 'massDelete']) !!}
                 <input type="hidden" id="send" name="toDelete">
             {!! Form::close() !!}
         </div>

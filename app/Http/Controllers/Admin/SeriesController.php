@@ -10,6 +10,7 @@ use App\Http\Requests\CreateSeriesRequest;
 use App\Http\Requests\UpdateSeriesRequest;
 use Illuminate\Http\Request;
 
+use App\User;
 
 
 class SeriesController extends Controller {
@@ -23,7 +24,7 @@ class SeriesController extends Controller {
 	 */
 	public function index(Request $request)
     {
-        $series = Series::all();
+        $series = Series::with("user")->get();
 
 		return view('admin.series.index', compact('series'));
 	}
@@ -35,9 +36,10 @@ class SeriesController extends Controller {
 	 */
 	public function create()
 	{
+	    $user = User::pluck("email", "id")->prepend('Please select', 0);
+
 	    
-	    
-	    return view('admin.series.create');
+	    return view('admin.series.create', compact("user"));
 	}
 
 	/**
@@ -62,9 +64,10 @@ class SeriesController extends Controller {
 	public function edit($id)
 	{
 		$series = Series::find($id);
+	    $user = User::pluck("email", "id")->prepend('Please select', 0);
+
 	    
-	    
-		return view('admin.series.edit', compact('series'));
+		return view('admin.series.edit', compact('series', "user"));
 	}
 
 	/**

@@ -31,7 +31,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'role_id','avatar'];
+    protected $fillable = ['name', 'email', 'password', 'role_id','avatar','confirm'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -50,5 +50,13 @@ class User extends Model implements AuthenticatableContract,
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+    public function permission()
+    {
+        return $this->belongsToMany('App\Permission', 'userpermission', 'user_id', 'permission_id');
+    }
+    public function group()
+    {
+        return $this->belongsToMany('App\Group', 'usergroup', 'user_id', 'group_id');
     }
 }

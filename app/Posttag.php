@@ -8,7 +8,7 @@ use Laraveldaily\Quickadmin\Observers\UserActionsObserver;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class NotificationGroup extends Model {
+class Posttag extends Model {
 
     use SoftDeletes;
 
@@ -19,11 +19,11 @@ class NotificationGroup extends Model {
     */
     protected $dates = ['deleted_at'];
 
-    protected $table    = 'notificationgroup';
+    protected $table    = 'posttag';
     
     protected $fillable = [
-          'notification_id',
-          'group_id'
+          'tag_id',
+          'post_id'
     ];
     
 
@@ -31,18 +31,18 @@ class NotificationGroup extends Model {
     {
         parent::boot();
 
-        NotificationGroup::observe(new UserActionsObserver);
+        Posttag::observe(new UserActionsObserver);
     }
     
-    public function notification()
+    public function tag()
     {
-        return $this->hasOne('App\Notification', 'id', 'notification_id');
+        return $this->hasOne('App\Tag', 'id', 'tag_id');
     }
 
 
-    public function group()
+    public function post()
     {
-        return $this->hasOne('App\Group', 'id', 'group_id');
+        return $this->hasOne('App\Post', 'id', 'post_id');
     }
 
 

@@ -16,26 +16,19 @@
     </div>
 </div>
 
-{!! Form::model($series, array('class' => 'form-horizontal', 'id' => 'form-with-validation', 'method' => 'PATCH', 'route' => array(config('quickadmin.route').'.series.update', $series->id))) !!}
+{!! Form::model($tag, array('class' => 'form-horizontal', 'id' => 'form-with-validation', 'method' => 'PATCH', 'route' => array(config('quickadmin.route').'.tag.update', $tag->id))) !!}
 
 <div class="form-group">
     {!! Form::label('name', 'name*', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::text('name', old('name',$series->name), array('class'=>'form-control')) !!}
-        
-    </div>
-</div><div class="form-group">
-    {!! Form::label('user_id', 'email*', array('class'=>'col-sm-2 control-label')) !!}
-    <div class="col-sm-10">
-        {!! Form::select('user_id', $user, old('user_id',$series->user_id), array('class'=>'form-control')) !!}
-        
+        {!! Form::text('name', old('name',$tag->name), array('class'=>'form-control')) !!}
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-sm-10 col-sm-offset-2">
       {!! Form::submit(trans('quickadmin::templates.templates-view_edit-update'), array('class' => 'btn btn-primary')) !!}
-      {!! link_to_route(config('quickadmin.route').'.series.index', trans('quickadmin::templates.templates-view_edit-cancel'), null, array('class' => 'btn btn-default')) !!}
+      {!! link_to_route(config('quickadmin.route').'.tag.index', trans('quickadmin::templates.templates-view_edit-cancel'), null, array('class' => 'btn btn-default')) !!}
     </div>
 </div>
 

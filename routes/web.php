@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+//verify email
+Route::post('/verify-user','ApiUserController@confirmUser');

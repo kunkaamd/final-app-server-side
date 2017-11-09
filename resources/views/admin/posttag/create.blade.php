@@ -16,18 +16,18 @@
     </div>
 </div>
 
-{!! Form::open(array('route' => config('quickadmin.route').'.notificationgroup.store', 'id' => 'form-with-validation', 'class' => 'form-horizontal')) !!}
+{!! Form::open(array('route' => config('quickadmin.route').'.posttag.store', 'id' => 'form-with-validation', 'class' => 'form-horizontal')) !!}
 
 <div class="form-group">
-    {!! Form::label('notification_id', 'Notification*', array('class'=>'col-sm-2 control-label')) !!}
+    {!! Form::label('tag_id', 'Tag*', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::select('notification_id', $notification, old('notification_id'), array('class'=>'form-control')) !!}
+        {!! Form::select('tag_id', $tag, old('tag_id'), array('class'=>'form-control')) !!}
         
     </div>
 </div><div class="form-group">
-    {!! Form::label('group_id', 'Group*', array('class'=>'col-sm-2 control-label')) !!}
+    {!! Form::label('post_id', 'Post*', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::select('group_id', $group, old('group_id'), array('class'=>'form-control')) !!}
+        {!! Form::select('post_id', $post, old('post_id'), array('class'=>'form-control')) !!}
         
     </div>
 </div>

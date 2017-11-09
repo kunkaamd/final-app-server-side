@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Eloquent\Model;
 
-class CreateNotificationGroupTable extends Migration {
+class CreateTagTable extends Migration {
 
     /**
      * Run the migrations.
@@ -14,10 +14,9 @@ class CreateNotificationGroupTable extends Migration {
     public function up()
     {
         Model::unguard();
-        Schema::create('notificationgroup',function(Blueprint $table){
+        Schema::create('tag',function(Blueprint $table){
             $table->increments("id");
-            $table->integer("notification_id")->references("id")->on("notification");
-            $table->integer("group_id")->references("id")->on("group");
+            $table->string("name");
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,7 +29,7 @@ class CreateNotificationGroupTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('notificationgroup');
+        Schema::drop('tag');
     }
 
 }

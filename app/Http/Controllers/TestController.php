@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Test;
 use Session;
+use App\Tag;
+use App\Post;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 class TestController extends Controller
@@ -15,15 +17,16 @@ class TestController extends Controller
     	return $data;
     }
     public function test(Request $request){
-      if($request->hasFile('file')){
-        $file = $request->file('file');
-        try{
-          $url = Storage::disk('uploads')->putFile('',$file,'public');
-          error_log($url);
-        }catch(\Exception $e){
-            return response()->json(['error'=> $e->getMessage()]);
-        }
+      $input = 'java';
+      $post = Post::find(1);
+      $id = Tag::select('id')->where('name',$input)->first();
+      if($id === null){
+        $post->tag()->create([
+          'name' => $input,
+        ]);
+      }else{
+        $post->tag()->attach($id->id);
       }
-      return response()->json(['success'=>''.$url]);
+      return $id;
     }
 }

@@ -25,6 +25,7 @@ class UpdateSeriesRequest extends FormRequest {
 	{
 		return [
             'name' => 'required', 
+            'user_id' => 'required', 
             
 		];
 	}
