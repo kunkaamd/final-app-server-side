@@ -34,10 +34,10 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 });
 //user
 Route::get('/user-hot','ApiUserController@getUserHot');
+Route::get('/information-of-user/{id}','ApiUserController@informationOfUser');
 //Tag
 Route::get('/tag-popular','ApiTagController@getPopuparTag');
 //post
-Route::get('/post-of-user/{id}','ApiPostController@getPostsOfUser');
 Route::get('/post/{id}','ApiPostController@getPost');
 Route::get('/post','ApiPostController@getManyPost');
 Route::get('/post-not-published','ApiPostController@getPostNotPublished');
@@ -46,4 +46,6 @@ Route::get('/post-of-series/{id}','ApiPostController@getPostsOfSeries');
 Route::get('/series','ApiSeriesController@getSeriesPopular');
 Route::get('/series-with-posts','ApiSeriesController@getAllSeriesWithPost');
 
+//search
+Route::get('/search/{key}','ApiSearchController@search');
 Route::get('/test', 'TestController@test');

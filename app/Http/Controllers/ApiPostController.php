@@ -10,21 +10,13 @@ use Illuminate\Support\Facades\Storage;
 class ApiPostController extends Controller
 {
     public function getPost(Request $request,$id){
-      $post = Post::with('comment.user')->where('id','=',$id)->get();
+      $post = Post::with(['comment.user','user'])->where('id','=',$id)->get();
       $post[0]->view_count += 1;
       $post[0]->save();
       return response()->json([
           'status'=> 200,
           'message'=> 'successfully',
           'data'=>$post
-      ]);
-    }
-    public function getPostsOfUser(Request $request,$id){
-      $posts = Post::select('id','title','image','view_count','created_at','user_id')->where('published','=','yes')->where('user_id','=',$id)->with(['user','tag'])->get();
-      return response()->json([
-          'status'=> 200,
-          'message'=> 'successfully',
-          'data'=>$posts
       ]);
     }
     public function getPostNotPublished(){

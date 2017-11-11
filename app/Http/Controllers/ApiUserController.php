@@ -5,12 +5,12 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use App\User;
-use App\UserGroup;
 use JWTAuth;
 use JWTAuthException;
 use Hash;
 use Mail;
 use App\Post;
+use App\Series;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\RegisterUserRequest;
 class ApiUserController extends Controller
@@ -124,6 +124,16 @@ class ApiUserController extends Controller
       $user->confirm = 1;
       $user->save();
       return view('verifynotication', ['message' => 'Đăng ký thành công, Thanks']);
+  }
+  public function informationOfUser(Request $request,$id){
+    $user = User::find($id);
+    $post = Post::select('id','title','image','view_count','created_at','user_id')->where('published','=','yes')->where('user_id','=',$id)->with(['user','tag'])->get();
+    $series = Series::where('user_id','=',$id)->get();
+    return response()->json([
+        'status'=> 200,
+        'message'=> 'successfully',
+        'data'=>['post' => $post,'user' => $user,'series' => $series]
+    ]);
   }
 
 }
