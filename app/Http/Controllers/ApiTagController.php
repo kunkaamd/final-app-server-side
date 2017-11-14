@@ -16,4 +16,13 @@ class ApiTagController extends Controller
           'data'=> $data
       ]);
     }
+    public function getAllTag(){
+      //$data = DB::select('SELECT tag.id,tag.name,temp.numberpost FROM `tag` LEFT JOIN (SELECT COUNT(*) AS numberpost,tag_id FROM posttag GROUP BY tag_id) AS temp ON temp.tag_id = tag.id');
+      $data = DB::table('tag')->leftJoin(DB::raw('(SELECT COUNT(*) AS numberpost,tag_id FROM posttag GROUP BY tag_id) AS temp'),'temp.tag_id','=','tag.id')->paginate(9);
+      return response()->json([
+          'status'=> 200,
+          'message'=> 'successfully',
+          'data'=> $data
+      ]);
+    }
 }

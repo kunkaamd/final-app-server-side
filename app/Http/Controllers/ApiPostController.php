@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Tag;
 use App\Series;
+use App\Posttag;
 use Illuminate\Support\Facades\Storage;
 class ApiPostController extends Controller
 {
@@ -20,7 +21,7 @@ class ApiPostController extends Controller
       ]);
     }
     public function getPostNotPublished(){
-      $posts = Post::select('id','title','image','rate','user_id')->where('published','=','no')->with('user')->get();
+      $posts = Post::select('id','title','image','rate','user_id')->where('published','=','no')->with(['user','tag'])->get();
       return response()->json([
           'status'=> 200,
           'message'=> 'successfully',
@@ -28,15 +29,24 @@ class ApiPostController extends Controller
       ]);
     }
     public function getPostsOfSeries(Request $request,$id){
-      $posts = Post::select('id','title','image','rate','user_id')->where('published','=','yes')->where('series_id','=',$id)->with('user')->get();
+      $posts = Post::select('id','title','image','rate','user_id')->where('published','=','yes')->where('series_id','=',$id)->with(['user','tag'])->paginate(9);
       return response()->json([
           'status'=> 200,
           'message'=> 'successfully',
           'data'=>$posts
       ]);
     }
-    public function getManyPost(Request $request){
-      $posts = Post::select('id','title','image','rate','user_id')->where('published','=','yes')->with(['user','tag'])->get();
+    public function getPostsOfTag(Request $request,$id){
+      $posts = Post::select('id','title','image','rate','user_id')->where('published','=','yes')->whereIn('id',Posttag::select('post_id')->where('tag_id',$id))->with(['tag','user'])->paginate(9);
+      $tag = Tag::find($id);
+      return response()->json([
+          'status'=> 200,
+          'message'=> 'successfully',
+          'data'=>['post' => $posts,'tag' => $tag]
+      ]);
+    }
+    public function getAllPost(Request $request){
+      $posts = Post::select('id','title','image','rate','user_id')->where('published','=','yes')->with(['user','tag'])->paginate(9);
       return response()->json([
           'status'=> 200,
           'message'=> 'successfully',

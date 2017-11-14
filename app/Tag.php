@@ -20,9 +20,9 @@ class Tag extends Model {
     protected $dates = ['deleted_at'];
 
     protected $table    = 'tag';
-    
+
     protected $fillable = ['name'];
-    
+
 
     public static function boot()
     {
@@ -30,8 +30,12 @@ class Tag extends Model {
 
         Tag::observe(new UserActionsObserver);
     }
-    
-    
-    
-    
+    public function post()
+    {
+        return $this->belongsToMany('App\Post','posttag');
+    }
+
+
+
+
 }

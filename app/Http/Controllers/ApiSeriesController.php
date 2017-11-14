@@ -23,30 +23,8 @@ class ApiSeriesController extends Controller
         'data'=>$series
     ]);
   }
-  public function getSeriesPopular(){
-    $data = Series::select('id','name','postnumber','user_id','created_at')->orderBy('postnumber', 'desc')->with('user')->get();
-    return response()->json([
-        'status'=> 200,
-        'message'=> 'successfully',
-        'data'=> $data
-    ]);
-  }
   public function getAllSeries(){
-    $data = Series::select('id','name')->get();
-    return response()->json([
-        'status'=> 200,
-        'message'=> 'successfully',
-        'data'=> $data
-    ]);
-  }
-
-
-  public function getAllSeriesWithPost(){
-    $data = Series::select('id','name')->get();
-    $data->map(function ($item) {
-        $item['post'] = $item->post()->select('title','id')->get();
-        return $item;
-    });
+    $data = Series::select('id','name','postnumber','user_id','created_at')->orderBy('postnumber', 'desc')->with('user')->paginate(10);
     return response()->json([
         'status'=> 200,
         'message'=> 'successfully',

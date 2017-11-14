@@ -125,14 +125,21 @@ class ApiUserController extends Controller
       $user->save();
       return view('verifynotication', ['message' => 'Đăng ký thành công, Thanks']);
   }
-  public function informationOfUser(Request $request,$id){
+  public function postOfUser(Request $request,$id){
     $user = User::find($id);
-    $post = Post::select('id','title','image','view_count','created_at','user_id')->where('published','=','yes')->where('user_id','=',$id)->with(['user','tag'])->get();
-    $series = Series::where('user_id','=',$id)->get();
+    $post = Post::select('id','title','image','view_count','created_at','user_id')->where('published','=','yes')->where('user_id','=',$id)->with('tag')->paginate(10);
     return response()->json([
         'status'=> 200,
         'message'=> 'successfully',
-        'data'=>['post' => $post,'user' => $user,'series' => $series]
+        'data'=>['post' => $post,'user' => $user]
+    ]);
+  }
+  public function seriesOfUser(Request $request,$id){
+    $series = Series::where('user_id','=',$id)->paginate(10);
+    return response()->json([
+        'status'=> 200,
+        'message'=> 'successfully',
+        'data'=>['series' => $series]
     ]);
   }
 
